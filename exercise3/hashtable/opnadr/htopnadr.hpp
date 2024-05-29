@@ -5,6 +5,7 @@
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
+#include "../../vector/vector.hpp"
 // #include ...
 
 /* ************************************************************************** */
@@ -19,21 +20,44 @@ class HashTableOpnAdr : virtual public HashTable<Data>{
 
 private:
 
-  // ...
+  enum State{
+    EMPTY,
+    FULL,
+    REMOVED
+  };
 
 protected:
 
+  static const unsigned long TABLESIZEMIN = 64;
+  static const unsigned long TABLESIZEMAX = 65536;
+
   // using HashTable<Data>::???;
   using HashTable<Data>::HashKey;
-  using DictionaryContainer<Data>::size;
-  // ...
+  using HashTable<Data>::hash;
+  using HashTable<Data>::tableSize;
+  using HashTable<Data>::a;
+  using HashTable<Data>::b;
+  using HashTable<Data>::distA;
+  using HashTable<Data>::distB;
+  using HashTable<Data>::generator;
+  using HashTable<Data>::size;
+
+  Vector<Data> table;
+  Vector<State> state;
+
+  double capPercentage = 0.0;
 
 public:
+
+  // using DictionaryContainer<Data>::InsertAll;
+  // using DictionaryContainer<Data>::InsertSome;
+  // using DictionaryContainer<Data>::RemoveAll;
+  // using DictionaryContainer<Data>::RemoveSome;
 
   // Default constructor
   // HashTableOpnAdr() specifiers;
 
-  HashTableOpnAdr() = default;
+  HashTableOpnAdr();
 
   /* ************************************************************************ */
 
@@ -67,7 +91,7 @@ public:
   // Destructor
   // ~HashTableOpnAdr() specifiers;
 
-  ~HashTableOpnAdr();
+  ~HashTableOpnAdr() = default;
 
   /* ************************************************************************ */
 
@@ -135,10 +159,11 @@ protected:
   // type FindEmpty(argument) specifiers;
   // type Remove(argument) specifiers;
 
-  ulong HashKey(ulong &, const Data &) const noexcept;
-  bool Find(ulong &, ulong &, const Data &) const noexcept;
-  ulong FindEmpty(ulong &, const Data &) const noexcept;
-  bool Remove(ulong &, const Data &) noexcept;
+  ulong HashKey(ulong, const Data &) const noexcept;
+  ulong Find(ulong, const Data &) const noexcept;
+  ulong FindEmpty(ulong, const Data &) const noexcept;
+  bool Remove(ulong, const Data &) noexcept;
+  ulong Pow2Next(const ulong) const noexcept;
 
 };
 

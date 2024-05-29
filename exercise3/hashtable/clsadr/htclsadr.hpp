@@ -5,7 +5,7 @@
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
-#include "../../list/list.hpp"
+#include "../../bst/bst.hpp"
 // #include ...
 
 /* ************************************************************************** */
@@ -24,20 +24,29 @@ private:
 
 protected:
 
+  static const ulong TABLESIZEMIN = 64;
+  static const ulong TABLESIZEMAX = 65536;
+
   // using HashTable<Data>::???;
   using HashTable<Data>::HashKey;
+  using HashTable<Data>::hash;
   using HashTable<Data>::tableSize;
-  using HashTable<Data>::size;
+  using Container::size;
+  using HashTable<Data>::a;
+  using HashTable<Data>::b;
 
-  List<Data> *table = nullptr;
-
-  // ...
+  BST<Data> *table = nullptr;
 
 public:
 
+  using DictionaryContainer<Data>::InsertAll;
+  using DictionaryContainer<Data>::InsertSome;
+  using DictionaryContainer<Data>::RemoveAll;
+  using DictionaryContainer<Data>::RemoveSome;
+
   // Default constructor
   // HashTableClsAdr() specifiers;
-  HashTableClsAdr() = default;
+  HashTableClsAdr();
 
   /* ************************************************************************ */
 
@@ -129,6 +138,10 @@ public:
   // type Clear() specifiers; // Override Container member
 
   void Clear() override;
+
+protected:
+
+  ulong Pow2Next(ulong) const noexcept;
 
 };
 

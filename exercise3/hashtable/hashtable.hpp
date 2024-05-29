@@ -41,15 +41,24 @@ private:
 protected:
 
   // using DictionaryContainer<Data>::???;
-  using DictionaryContainer<Data>::size;
+  using Container::size;
+
+  static const Hashable<Data> hash;
+
+  std::default_random_engine generator = std::default_random_engine(std::random_device{}());
+  std::uniform_int_distribution<ulong> distA = std::uniform_int_distribution<ulong>(1, prime);
+  std::uniform_int_distribution<ulong> distB = std::uniform_int_distribution<ulong>(0, prime);
 
   ulong a = 3;
   ulong b = 5;
   ulong tableSize = 16;
+  ulong prime = 1069;
 
   // ...
 
 public:
+
+  HashTable();
 
   // Destructor
   // ~HashTable() specifiers
@@ -63,7 +72,7 @@ public:
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types should not be possible.
-  HashTable &operator=(HashTable<Data> &&)noexcept = delete;
+  HashTable &operator=(HashTable<Data> &&) noexcept = delete;
 
   /* ************************************************************************ */
 
