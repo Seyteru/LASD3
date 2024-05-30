@@ -60,15 +60,20 @@ namespace lasd {
 
     template <typename Data>
     HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data> &hashTableCl){
-        a = hashTableCl.a;
-        b = hashTableCl.b;
-        table = hashTableCl.table;
         tableSize = hashTableCl.tableSize;
         size = hashTableCl.size;
+        a = hashTableCl.a;
+        b = hashTableCl.b;
+        table = new BST<Data>[tableSize] {};
+        std::copy(hashTableCl.table, hashTableCl.table + tableSize, table);
     }
 
     template <typename Data>
     HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data> &&hashTableCl) noexcept{
+        std::swap(tableSize, hashTableCl.tableSize);
+        std::swap(size, hashTableCl.size);
+        std::swap(a, hashTableCl.a);
+        std::swap(b, hashTableCl.b);
         std::swap(table, hashTableCl.table);
     }
 
@@ -79,19 +84,25 @@ namespace lasd {
 
     template <typename Data>
     HashTableClsAdr<Data> &HashTableClsAdr<Data>::operator=(const HashTableClsAdr<Data> &hashTableCl){
-        HashTableClsAdr<Data> *tempHashTable = new HashTableClsAdr<Data>(hashTableCl);
-        std::swap(*this, *tempHashTable);
-        delete tempHashTable;
+        tableSize = hashTableCl.tableSize;
+        size = hashTableCl.size;
+        a = hashTableCl.a;
+        b = hashTableCl.b;
+        delete[] table;
+        table = new BST<Data>[tableSize] {};
+        for(ulong i = 0; i < tableSize; i++){
+            table[i] = hashTableCl.table[i];
+        }
         return *this;
     }
 
     template <typename Data>
     HashTableClsAdr<Data> &HashTableClsAdr<Data>::operator=(HashTableClsAdr<Data> &&hashTableCl) noexcept{
+        std::swap(tableSize, hashTableCl.tableSize);
+        std::swap(size, hashTableCl.size);
         std::swap(a, hashTableCl.a);
         std::swap(b, hashTableCl.b);
         std::swap(table, hashTableCl.table);
-        std::swap(tableSize, hashTableCl.tableSize);
-        std::swap(size, hashTableCl.size);
         return *this;
     }
 
@@ -164,12 +175,10 @@ namespace lasd {
     void HashTableClsAdr<Data>::Resize(const ulong newSize){
         HashTableClsAdr<Data> *tempHashTable = new HashTableClsAdr<Data>(newSize);
         for(ulong i = 0; i < tableSize; i++){
-            if(!(table[i].Empty())){
-                BTInOrderIterator<Data> itr(table[i]);
-                while(!itr.Terminated()){
-                    tempHashTable -> Insert(*itr);
-                    ++itr;
-                }
+            BTInOrderIterator<Data> itr(table[i]);
+            while(!itr.Terminated()){
+                tempHashTable -> Insert(*itr);
+                ++itr;
             }
         }
         std::swap(*this, *tempHashTable);
@@ -178,11 +187,9 @@ namespace lasd {
 
     template <typename Data>
     void HashTableClsAdr<Data>::Clear(){
-        if(table != nullptr){
-            delete[] table;
-            table = new BST<Data>[tableSize] {};
-            size = 0;
-        }
+        delete[] table;
+        table = new lasd::BST<Data>[tableSize] {};
+        size = 0;
     }
 
     template <typename Data>

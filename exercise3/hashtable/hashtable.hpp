@@ -58,7 +58,7 @@ protected:
 
 public:
 
-  HashTable();
+
 
   // Destructor
   // ~HashTable() specifiers

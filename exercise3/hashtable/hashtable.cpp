@@ -33,12 +33,6 @@ namespace lasd {
     };
 
     template <typename Data>
-    HashTable<Data>::HashTable(){
-        a = (distA(generator) * 2) + 1;
-        b = std::pow(2, std::ceil(log2(distB(generator))));
-    }
-
-    template <typename Data>
     ulong HashTable<Data>::HashKey(ulong key) const noexcept{
         return ((a * key + b) % tableSize);
     }
