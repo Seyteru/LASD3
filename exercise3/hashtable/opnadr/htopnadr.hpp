@@ -49,11 +49,6 @@ protected:
 
 public:
 
-  using DictionaryContainer<Data>::InsertAll;
-  using DictionaryContainer<Data>::InsertSome;
-  using DictionaryContainer<Data>::RemoveAll;
-  using DictionaryContainer<Data>::RemoveSome;
-
   // Default constructor
   // HashTableOpnAdr() specifiers;
 

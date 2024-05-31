@@ -100,7 +100,7 @@ void stestHashTableInt(uint & testnum, uint & testerr) {
     for (uint i = 0; i < 127; i++) {
       vec[i] = pow(-2, i % 24) * ((61 * i + 29) % 127);
     }
-
+    
     lasd::HashTableClsAdr<int> htclsadr(83, vec);
     cout << endl << "Begin of HashTableClsAdr<int> Test:" << endl;
     stestHashTableInt(htclsadr, vec, loctestnum, loctesterr);

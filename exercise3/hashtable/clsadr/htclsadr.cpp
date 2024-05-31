@@ -196,10 +196,10 @@ namespace lasd {
     ulong HashTableClsAdr<Data>::Pow2Next(const ulong next) const noexcept{
         ulong newSize = TABLESIZEMIN;
         while(newSize < next){
-            if(newSize >= TABLESIZEMAX){
+            if(newSize == TABLESIZEMAX){
                 return newSize;
             }
-            newSize = pow(newSize, 2);
+            newSize = std::pow(newSize, 2);
         }
         return newSize;
     }

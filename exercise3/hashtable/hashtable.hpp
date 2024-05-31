@@ -51,7 +51,7 @@ protected:
 
   ulong a = 3;
   ulong b = 5;
-  ulong tableSize = 16;
+  ulong tableSize = 64;
   ulong prime = 1069;
 
   // ...
@@ -82,6 +82,7 @@ public:
 
   bool operator==(const HashTable<Data> &) const noexcept = delete;
   bool operator!=(const HashTable<Data> &) const noexcept = delete;
+  
 
 protected:
 
