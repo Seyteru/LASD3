@@ -98,11 +98,11 @@ namespace lasd {
     }
 
     template <typename Data>
-    void Vector<Data>::Resize(const ulong newSize){
+    void Vector<Data>::Resize(ulong newSize){
         if(newSize == 0){
             Clear();
         } else if(size != newSize){
-            Data *tempElement = new Data[newSize]{};
+            Data *tempElement = new Data[newSize] {};
             ulong minimumSize;
             minimumSize = (size < newSize) ? size : newSize;
             for(ulong index = 0; index < minimumSize; index++){

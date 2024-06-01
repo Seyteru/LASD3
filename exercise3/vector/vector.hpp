@@ -83,7 +83,7 @@ public:
   // Specific member function (inherited from ResizableContainer)
 
   // type Resize(argument) specifiers; // Override ResizableContainer member
-  void Resize(const ulong) override;
+  void Resize(ulong) override;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from LinearContainer)

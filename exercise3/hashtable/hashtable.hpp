@@ -52,7 +52,7 @@ protected:
   ulong a = 3;
   ulong b = 7;
   ulong tableSize = 128;
-  static const ulong prime = 1000000033;
+  static const ulong prime = 17;
 
   // ...
 

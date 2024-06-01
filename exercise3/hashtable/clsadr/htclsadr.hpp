@@ -126,7 +126,7 @@ public:
 
   // type Resize(argument) specifiers; // Resize the hashtable to a given size
 
-  void Resize(const ulong) override;
+  void Resize(ulong) override;
 
   /* ************************************************************************ */
 
@@ -138,7 +138,7 @@ public:
 
 protected:
 
-  ulong Pow2Next(ulong) const noexcept;
+  ulong Pow2Next(const ulong) const noexcept;
 
 };
 

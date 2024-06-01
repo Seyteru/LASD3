@@ -122,8 +122,9 @@ namespace lasd {
         if(table[idx].Insert(data)){
             size++;
             return true;
+        } else{
+            return false;
         }
-        return false;
     }
 
     template <typename Data>
@@ -132,8 +133,9 @@ namespace lasd {
         if(table[idx].Insert(std::move(data))){
             size++;
             return true;
-        } 
-        return false;
+        } else{
+            return false;
+        }
     }
 
     template <typename Data>
@@ -142,8 +144,9 @@ namespace lasd {
         if(table[idx].Remove(data)){
             size--;
             return true;
-        } 
-        return false;
+        } else{
+            return false;
+        }
     }
 
     template <typename Data>
@@ -151,12 +154,13 @@ namespace lasd {
         ulong idx = HashKey(hash(data));
         if(table[idx].Exists(data)){
             return true;
-        } 
-        return false;
+        } else{
+            return false;
+        }
     }
 
     template <typename Data>
-    void HashTableClsAdr<Data>::Resize(const ulong newSize){
+    void HashTableClsAdr<Data>::Resize(ulong newSize){
         HashTableClsAdr<Data> *tempHashTable = new HashTableClsAdr<Data>(newSize);
         for(ulong i = 0; i < tableSize; i++){
             BTInOrderIterator<Data> itr(table[i]);
@@ -172,7 +176,7 @@ namespace lasd {
     template <typename Data>
     void HashTableClsAdr<Data>::Clear(){
         delete[] table;
-        table = new lasd::BST<Data>[tableSize] {};
+        table = new BST<Data>[tableSize] {};
         size = 0;
     }
 

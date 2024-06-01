@@ -202,8 +202,19 @@ void mytestHashTableInteger(){
     lasd::List<int> list2;
     fill(list2, 200);
 
+    lasd::List<int> list3;
+    fill(list3, 100);
+
+    lasd::Vector<int> vec4(300);
+    fill(vec4);
+
+    lasd::Vector<int> vec5(1000);
+    fill(vec5);
+
     lasd::BinaryTreeLnk<int> binaryTreeLnk1(vec);
     lasd::BST<int> bst1(vec2);
+    lasd::BinaryTreeLnk<int> binaryTreeLnk2(vec4);
+    lasd::BST<int> bst2(vec5);
 
     cout << endl << "Constructors Tests" << endl << endl;
 
@@ -221,7 +232,7 @@ void mytestHashTableInteger(){
 
     cout << endl;
 
-    lasd::HashTableClsAdr<int> hashTableClAdr1(65545);
+    lasd::HashTableClsAdr<int> hashTableClAdr1(500);
 
     HashTabSize(hashTableClAdr1, 0);
     HashTabEmpty(hashTableClAdr1, true);
@@ -332,14 +343,88 @@ void mytestHashTableInteger(){
 
     hashTableCl.Clear();
     HashTabSize(hashTableCl, 0);
+    hashTableCl.InsertAll(vec2);
+    HashTabSize(hashTableCl, 50);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 50);
+    hashTableCl.InsertAll(vec3);
+    HashTabSize(hashTableCl, 100);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 100);
     hashTableCl.InsertAll(vec);
     HashTabSize(hashTableCl, 135);
-    HashTabCountElementFromContainer(hashTableCl, vec, 135);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 135);
+    hashTableCl.InsertAll(list1);
+    HashTabSize(hashTableCl, 160);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 160);
+    hashTableCl.InsertAll(list2);
+    HashTabSize(hashTableCl, 200);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 200);
+    hashTableCl.InsertAll(binaryTreeLnk2);
+    HashTabSize(hashTableCl, 300);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 300);
+    hashTableCl.InsertAll(bst2);
+    HashTabSize(hashTableCl, 1000);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 1000);
+    hashTableCl.RemoveAll(vec2);
+    HashTabSize(hashTableCl, 950);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 950);
+    hashTableCl.RemoveAll(vec3);
+    HashTabSize(hashTableCl, 900);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 900);
+    hashTableCl.RemoveAll(vec);
+    HashTabSize(hashTableCl, 865);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 865);
+    hashTableCl.RemoveAll(list1);
+    HashTabSize(hashTableCl, 840);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 840);
+    hashTableCl.RemoveAll(list2);
+    HashTabSize(hashTableCl, 800);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 800);
+    hashTableCl.RemoveAll(binaryTreeLnk2);
+    HashTabSize(hashTableCl, 700);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 700);
+    hashTableCl.RemoveAll(bst2);
+    HashTabSize(hashTableCl, 0);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 0);
 
-    lasd::HashTableClsAdr<int> hastTest;
-    hastTest.InsertAll(vec);
-    HashTabSize(hastTest, 135);
-    HashTabCountElementFromContainer(hastTest, vec, 135);
+    hashTableCl.InsertSome(bst2);
+    HashTabSize(hashTableCl, 1000);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 1000);
+    hashTableCl.RemoveSome(bst2);
+    HashTabSize(hashTableCl, 0);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 0);
+    hashTableCl.Clear();
+
+    cout << endl;
+
+    lasd::Vector<int> vec6(30);
+    for(ulong i = 0; i < vec6.Size(); i = i+2){
+      vec6[i] = i;
+    }
+
+    lasd::Vector<int> vec7(30);
+    for(ulong i = 0; i < vec7.Size(); i++){
+      vec7[i] = i;
+    }
+
+    hashTableCl.InsertAll(vec6);
+    HashTabSize(hashTableCl, 15);
+    for(ulong i = 0; i < 30; i = i+2){
+      HashTabExists(hashTableCl, true, vec7[i]);
+      HashTabNotExists(hashTableCl, true, vec7[i+1]);
+    }
+    hashTableCl.Clear();
+
+    cout << endl;
+
+    hashTableCl.InsertAll(vec3);
+    lasd::HashTableClsAdr<int> hashTableCl2(list3);
+    HashTabEquals(hashTableCl, hashTableCl2, true);
+    lasd::BST<int> bst3(list3);
+    lasd::HashTableClsAdr<int> hashTableCl3(bst3);
+    HashTabEquals(hashTableCl3, hashTableCl, true);
+    HashTabEquals(hashTableCl3, hashTableCl2, true);
+
+    cout << endl;
 
     cout << endl << "End HashTableClAdr for Integer" << endl;
     cout << endl << "Begin HashTableOpnAdr for Integer" << endl;
@@ -360,7 +445,7 @@ void mytestHashTableInteger(){
 
     cout << endl;
 
-    lasd::HashTableOpnAdr<int> hashTableOpnAdr1(65545);
+    lasd::HashTableOpnAdr<int> hashTableOpnAdr1(500);
 
     HashTabSize(hashTableOpnAdr1, 0);
     HashTabEmpty(hashTableOpnAdr1, true);
@@ -469,6 +554,91 @@ void mytestHashTableInteger(){
     HashTabNotExists(hashTableOpn, true, 4);
     HashTabSize(hashTableOpn, 100);
 
+    hashTableOpn.Clear();
+    HashTabSize(hashTableOpn, 0);
+    hashTableOpn.InsertAll(vec2);
+    HashTabSize(hashTableOpn, 50);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 50);
+    hashTableOpn.InsertAll(vec3);
+    HashTabSize(hashTableOpn, 100);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 100);
+    hashTableOpn.InsertAll(vec);
+    HashTabSize(hashTableOpn, 135);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 135);
+    hashTableOpn.InsertAll(list1);
+    HashTabSize(hashTableOpn, 160);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 160);
+    hashTableOpn.InsertAll(list2);
+    HashTabSize(hashTableOpn, 200);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 200);
+    hashTableOpn.InsertAll(binaryTreeLnk2);
+    HashTabSize(hashTableOpn, 300);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 300);
+    hashTableOpn.InsertAll(bst2);
+    HashTabSize(hashTableOpn, 1000);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 1000);
+    hashTableOpn.RemoveAll(vec2);
+    HashTabSize(hashTableOpn, 950);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 950);
+    hashTableOpn.RemoveAll(vec3);
+    HashTabSize(hashTableOpn, 900);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 900);
+    hashTableOpn.RemoveAll(vec);
+    HashTabSize(hashTableOpn, 865);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 865);
+    hashTableOpn.RemoveAll(list1);
+    HashTabSize(hashTableOpn, 840);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 840);
+    hashTableOpn.RemoveAll(list2);
+    HashTabSize(hashTableOpn, 800);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 800);
+    hashTableOpn.RemoveAll(binaryTreeLnk2);
+    HashTabSize(hashTableOpn, 700);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 700);
+    hashTableOpn.RemoveAll(bst2);
+    HashTabSize(hashTableOpn, 0);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 0);
+
+    hashTableOpn.InsertSome(bst2);
+    HashTabSize(hashTableOpn, 1000);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 1000);
+    hashTableOpn.RemoveSome(bst2);
+    HashTabSize(hashTableOpn, 0);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 0);
+    hashTableOpn.Clear();
+
+    cout << endl;
+
+    hashTableOpn.InsertAll(vec6);
+    HashTabSize(hashTableOpn, 15);
+    for(ulong i = 0; i < 30; i = i+2){
+      HashTabExists(hashTableOpn, true, vec7[i]);
+      HashTabNotExists(hashTableOpn, true, vec7[i+1]);
+    }
+    hashTableOpn.Clear();
+
+    cout << endl;
+
+    hashTableOpn.InsertAll(vec3);
+    lasd::HashTableOpnAdr<int> hashTableOpn2(list3);
+    HashTabEquals(hashTableOpn, hashTableOpn2, true);
+    lasd::BinaryTreeLnk<int> btlink3(list3);
+    lasd::HashTableOpnAdr<int> hashTableOpn3(btlink3);
+    HashTabEquals(hashTableOpn3, hashTableOpn, true);
+    HashTabEquals(hashTableOpn3, hashTableOpn2, true);
+
+    vec.Clear();
+    vec2.Clear();
+    vec3.Clear();
+    vec4.Clear();
+    vec5.Clear();
+    list1.Clear();
+    list2.Clear();
+    binaryTreeLnk1.Clear();
+    binaryTreeLnk2.Clear();
+    bst1.Clear();
+    bst2.Clear();
+
     cout << endl << "End HashTableOpnAdr for Integer" << endl;
 
   }
@@ -498,8 +668,19 @@ void mytestHashTableDouble(){
     lasd::List<double> list2;
     fill(list2, 200);
 
+    lasd::List<double> list3;
+    fill(list3, 100);
+
+    lasd::Vector<double> vec4(300);
+    fill(vec4);
+
+    lasd::Vector<double> vec5(1000);
+    fill(vec5);
+
     lasd::BinaryTreeLnk<double> binaryTreeLnk1(vec);
     lasd::BST<double> bst1(vec2);
+    lasd::BinaryTreeLnk<double> binaryTreeLnk2(vec4);
+    lasd::BST<double> bst2(vec5);
 
     cout << endl << "Constructors Tests" << endl << endl;
 
@@ -517,7 +698,7 @@ void mytestHashTableDouble(){
 
     cout << endl;
 
-    lasd::HashTableClsAdr<double> hashTableClAdr1(65545);
+    lasd::HashTableClsAdr<double> hashTableClAdr1(500);
 
     HashTabSize(hashTableClAdr1, 0);
     HashTabEmpty(hashTableClAdr1, true);
@@ -628,14 +809,86 @@ void mytestHashTableDouble(){
 
     hashTableCl.Clear();
     HashTabSize(hashTableCl, 0);
+    hashTableCl.InsertAll(vec2);
+    HashTabSize(hashTableCl, 50);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 50);
+    hashTableCl.InsertAll(vec3);
+    HashTabSize(hashTableCl, 100);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 100);
     hashTableCl.InsertAll(vec);
     HashTabSize(hashTableCl, 135);
-    HashTabCountElementFromContainer(hashTableCl, vec, 135);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 135);
+    hashTableCl.InsertAll(list1);
+    HashTabSize(hashTableCl, 160);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 160);
+    hashTableCl.InsertAll(list2);
+    HashTabSize(hashTableCl, 200);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 200);
+    hashTableCl.InsertAll(binaryTreeLnk2);
+    HashTabSize(hashTableCl, 300);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 300);
+    hashTableCl.InsertAll(bst2);
+    HashTabSize(hashTableCl, 1000);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 1000);
+    hashTableCl.RemoveAll(vec2);
+    HashTabSize(hashTableCl, 950);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 950);
+    hashTableCl.RemoveAll(vec3);
+    HashTabSize(hashTableCl, 900);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 900);
+    hashTableCl.RemoveAll(vec);
+    HashTabSize(hashTableCl, 865);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 865);
+    hashTableCl.RemoveAll(list1);
+    HashTabSize(hashTableCl, 840);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 840);
+    hashTableCl.RemoveAll(list2);
+    HashTabSize(hashTableCl, 800);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 800);
+    hashTableCl.RemoveAll(binaryTreeLnk2);
+    HashTabSize(hashTableCl, 700);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 700);
+    hashTableCl.RemoveAll(bst2);
+    HashTabSize(hashTableCl, 0);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 0);
 
-    lasd::HashTableClsAdr<double> hastTest;
-    hastTest.InsertAll(vec);
-    HashTabSize(hastTest, 135);
-    HashTabCountElementFromContainer(hastTest, vec, 135);
+    hashTableCl.InsertSome(bst2);
+    HashTabSize(hashTableCl, 1000);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 1000);
+    hashTableCl.RemoveSome(bst2);
+    HashTabSize(hashTableCl, 0);
+    HashTabCountElementFromContainer(hashTableCl, bst2, 0);
+    hashTableCl.Clear();
+
+    cout << endl;
+    
+    lasd::Vector<double> vec6(30);
+    for(ulong i = 0; i < vec6.Size(); i = i+2){
+      vec6[i] = i + 0.5;
+    }
+
+    lasd::Vector<double> vec7(30);
+    for(ulong i = 0; i < vec7.Size(); i++){
+      vec7[i] = i + 0.5;
+    }
+
+    hashTableCl.InsertAll(vec6);
+    HashTabSize(hashTableCl, 16);
+    for(ulong i = 0; i < 30; i = i+2){
+      HashTabExists(hashTableCl, true, vec7[i]);
+      HashTabNotExists(hashTableCl, true, vec7[i+1]);
+    }
+    hashTableCl.Clear();
+
+    cout << endl;
+
+    hashTableCl.InsertAll(vec3);
+    lasd::HashTableClsAdr<double> hashTableCl2(list3);
+    HashTabEquals(hashTableCl, hashTableCl2, true);
+    lasd::BST<double> bst3(list3);
+    lasd::HashTableClsAdr<double> hashTableCl3(bst3);
+    HashTabEquals(hashTableCl3, hashTableCl, true);
+    HashTabEquals(hashTableCl3, hashTableCl2, true);
 
     cout << endl << "End HashTableClAdr for Double" << endl;
     cout << endl << "Begin HashTableOpnAdr for Double" << endl;
@@ -656,7 +909,7 @@ void mytestHashTableDouble(){
 
     cout << endl;
 
-    lasd::HashTableOpnAdr<double> hashTableOpnAdr1(65545);
+    lasd::HashTableOpnAdr<double> hashTableOpnAdr1(500);
 
     HashTabSize(hashTableOpnAdr1, 0);
     HashTabEmpty(hashTableOpnAdr1, true);
@@ -765,6 +1018,93 @@ void mytestHashTableDouble(){
     HashTabNotExists(hashTableOpn, true, 4.5);
     HashTabSize(hashTableOpn, 100);
 
+    hashTableOpn.Clear();
+    HashTabSize(hashTableOpn, 0);
+    hashTableOpn.InsertAll(vec2);
+    HashTabSize(hashTableOpn, 50);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 50);
+    hashTableOpn.InsertAll(vec3);
+    HashTabSize(hashTableOpn, 100);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 100);
+    hashTableOpn.InsertAll(vec);
+    HashTabSize(hashTableOpn, 135);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 135);
+    hashTableOpn.InsertAll(list1);
+    HashTabSize(hashTableOpn, 160);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 160);
+    hashTableOpn.InsertAll(list2);
+    HashTabSize(hashTableOpn, 200);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 200);
+    hashTableOpn.InsertAll(binaryTreeLnk2);
+    HashTabSize(hashTableOpn, 300);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 300);
+    hashTableOpn.InsertAll(bst2);
+    HashTabSize(hashTableOpn, 1000);
+    HashTabCountElementFromContainer(hashTableOpn, vec5, 1000);
+    hashTableOpn.RemoveAll(vec2);
+    HashTabSize(hashTableOpn, 950);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 950);
+    hashTableOpn.RemoveAll(vec3);
+    HashTabSize(hashTableOpn, 900);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 900);
+    hashTableOpn.RemoveAll(vec);
+    HashTabSize(hashTableOpn, 865);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 865);
+    hashTableOpn.RemoveAll(list1);
+    HashTabSize(hashTableOpn, 840);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 840);
+    hashTableOpn.RemoveAll(list2);
+    HashTabSize(hashTableOpn, 800);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 800);
+    hashTableOpn.RemoveAll(binaryTreeLnk2);
+    HashTabSize(hashTableOpn, 700);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 700);
+    hashTableOpn.RemoveAll(bst2);
+    HashTabSize(hashTableOpn, 0);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 0);
+
+    hashTableOpn.InsertSome(bst2);
+    HashTabSize(hashTableOpn, 1000);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 1000);
+    hashTableOpn.RemoveSome(bst2);
+    HashTabSize(hashTableOpn, 0);
+    HashTabCountElementFromContainer(hashTableOpn, bst2, 0);
+    hashTableOpn.Clear();
+
+    cout << endl;
+
+    hashTableOpn.InsertAll(vec6);
+    HashTabSize(hashTableOpn, 16);
+    for(ulong i = 0; i < 30; i = i+2){
+      HashTabExists(hashTableOpn, true, vec7[i]);
+      HashTabNotExists(hashTableOpn, true, vec7[i+1]);
+    }
+    hashTableOpn.Clear();
+
+    cout << endl;
+
+    hashTableOpn.InsertAll(vec3);
+    lasd::HashTableOpnAdr<double> hashTableOpn2(list3);
+    HashTabEquals(hashTableOpn, hashTableOpn2, true);
+    lasd::BinaryTreeLnk<double> btlink3(list3);
+    lasd::HashTableOpnAdr<double> hashTableOpn3(btlink3);
+    HashTabEquals(hashTableOpn3, hashTableOpn, true);
+    HashTabEquals(hashTableOpn3, hashTableOpn2, true);
+
+    cout << endl;
+
+    vec.Clear();
+    vec2.Clear();
+    vec3.Clear();
+    vec4.Clear();
+    vec5.Clear();
+    list1.Clear();
+    list2.Clear();
+    binaryTreeLnk1.Clear();
+    binaryTreeLnk2.Clear();
+    bst1.Clear();
+    bst2.Clear();
+
     cout << endl << "End HashTableOpnAdr for Double" << endl;
   }
   catch(...){
@@ -793,8 +1133,16 @@ void mytestHashTableString(){
     lasd::List<string> list2;
     fill(list2, 200);
 
+    lasd::Vector<string> vec4(300);
+    fill(vec4);
+
+    lasd::Vector<string> vec5(500);
+    fill(vec5);
+
     lasd::BinaryTreeLnk<string> binaryTreeLnk1(vec);
     lasd::BST<string> bst1(vec2);
+    lasd::BinaryTreeLnk<string> binaryTreeLnk2(vec4);
+    lasd::BST<string> bst2(vec5);
 
     cout << endl << "Constructors Tests" << endl << endl;
 
@@ -812,7 +1160,7 @@ void mytestHashTableString(){
 
     cout << endl;
 
-    lasd::HashTableClsAdr<string> hashTableClAdr1(65545);
+    lasd::HashTableClsAdr<string> hashTableClAdr1(500);
 
     HashTabSize(hashTableClAdr1, 0);
     HashTabEmpty(hashTableClAdr1, true);
@@ -921,6 +1269,11 @@ void mytestHashTableString(){
     HashTabNotExists(hashTableCl, true, string("D"));
     HashTabSize(hashTableCl, 100);
 
+    hashTableCl.Clear();
+    
+
+    cout << endl;
+
     cout << endl << "End HashTableClAdr for String" << endl;
     cout << endl << "Begin HashTableOpnAdr for String" << endl;
     
@@ -940,7 +1293,7 @@ void mytestHashTableString(){
 
     cout << endl;
 
-    lasd::HashTableOpnAdr<string> hashTableOpnAdr1(65545);
+    lasd::HashTableOpnAdr<string> hashTableOpnAdr1(500);
 
     HashTabSize(hashTableOpnAdr1, 0);
     HashTabEmpty(hashTableOpnAdr1, true);
@@ -1048,6 +1401,22 @@ void mytestHashTableString(){
     HashTabNotExists(hashTableOpn, true, string("C"));
     HashTabNotExists(hashTableOpn, true, string("D"));
     HashTabSize(hashTableOpn, 100);
+
+    hashTableOpn.Clear();
+
+    cout << endl;
+
+    vec.Clear();
+    vec2.Clear();
+    vec3.Clear();
+    vec4.Clear();
+    vec5.Clear();
+    list1.Clear();
+    list2.Clear();
+    binaryTreeLnk1.Clear();
+    binaryTreeLnk2.Clear();
+    bst1.Clear();
+    bst2.Clear();
 
     cout << endl << "End HashTableOpnAdr for String" << endl;
   }
