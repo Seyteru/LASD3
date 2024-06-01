@@ -145,14 +145,15 @@ public:
   // Specific member functions
 
   // type Resize(argument) specifiers;
-  // Vedere se conviene definirlo o farlo puro.
+
   virtual void Resize(ulong) = 0;
+
   /* ************************************************************************ */
 
   // Specific member function (inherited from ClearableContainer)
 
   // type Clear() specifiers; // Override ClearableContainer member
-  // Forse non necessario perche definito in container
+
   virtual void Clear() override = 0;
 
 };

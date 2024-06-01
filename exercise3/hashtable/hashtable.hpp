@@ -41,24 +41,22 @@ private:
 protected:
 
   // using DictionaryContainer<Data>::???;
-  using Container::size;
+  using DictionaryContainer<Data>::size;
 
   static const Hashable<Data> hash;
 
   std::default_random_engine generator = std::default_random_engine(std::random_device{}());
-  std::uniform_int_distribution<ulong> distA = std::uniform_int_distribution<ulong>(1, prime);
-  std::uniform_int_distribution<ulong> distB = std::uniform_int_distribution<ulong>(0, prime);
+  std::uniform_int_distribution<ulong> generatorA = std::uniform_int_distribution<ulong>(1, prime);
+  std::uniform_int_distribution<ulong> generatorB = std::uniform_int_distribution<ulong>(0, prime);
 
   ulong a = 3;
-  ulong b = 5;
-  ulong tableSize = 64;
-  ulong prime = 1069;
+  ulong b = 7;
+  ulong tableSize = 128;
+  static const ulong prime = 1000000033;
 
   // ...
 
 public:
-
-
 
   // Destructor
   // ~HashTable() specifiers

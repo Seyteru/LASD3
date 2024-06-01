@@ -24,20 +24,22 @@ private:
 
 protected:
 
-  static const ulong TABLESIZEMIN = 64;
+  static const ulong TABLESIZEMIN = 128;
   static const ulong TABLESIZEMAX = 65536;
 
   // using HashTable<Data>::???;
   using HashTable<Data>::HashKey;
   using HashTable<Data>::hash;
   using HashTable<Data>::tableSize;
-  using Container::size;
+  using HashTable<Data>::size;
   using HashTable<Data>::a;
   using HashTable<Data>::b;
 
   BST<Data> *table = nullptr;
 
 public:
+
+  using DictionaryContainer<Data>::InsertAll;
 
   // Default constructor
   // HashTableClsAdr() specifiers;

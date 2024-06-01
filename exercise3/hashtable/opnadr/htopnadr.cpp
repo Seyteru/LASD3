@@ -5,8 +5,8 @@ namespace lasd {
     template <typename Data>
     HashTableOpnAdr<Data>::HashTableOpnAdr(){
         tableSize = TABLESIZEMIN;
-        a = 2*(distA(generator)) + 1;
-        b = 2*(distB(generator));
+        a = 2*(generatorA(generator)) + 1;
+        b = 2*(generatorB(generator));
         table.Resize(tableSize);
         state.Resize(tableSize); 
         for(ulong i = 0; i < tableSize; i++){
@@ -18,8 +18,8 @@ namespace lasd {
     template <typename Data>
     HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newSize){
         tableSize = Pow2Next(newSize);
-        a = 2*(distA(generator)) + 1;
-        b = 2*(distB(generator));
+        a = 2*(generatorA(generator)) + 1;
+        b = 2*(generatorB(generator));
         table.Resize(tableSize);
         state.Resize(tableSize);
         for(ulong i = 0; i < tableSize; i++){
@@ -30,38 +30,22 @@ namespace lasd {
 
     template <typename Data>
     HashTableOpnAdr<Data>::HashTableOpnAdr(const TraversableContainer<Data> &container) : HashTableOpnAdr(container.Size()){
-        container.Traverse(
-            [this](const Data &data){
-                Insert(data);
-            }
-        );
+        InsertAll(container);
     }
 
     template <typename Data>
     HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newSize, const TraversableContainer<Data> &container) : HashTableOpnAdr(newSize){
-        container.Traverse(
-            [this](const Data &data){
-                Insert(data);
-            }
-        );
+        InsertAll(container);
     }
     
     template <typename Data>
     HashTableOpnAdr<Data>::HashTableOpnAdr(MappableContainer<Data> &&container) : HashTableOpnAdr(container.Size()){
-        container.Map(
-            [this](Data &data){
-                Insert(std::move(data));
-            }
-        );
+        InsertAll(std::move(container));
     }
 
     template <typename Data>
     HashTableOpnAdr<Data>::HashTableOpnAdr(const ulong newSize, MappableContainer<Data> &&container) : HashTableOpnAdr(newSize){
-        container.Map(
-            [this](Data &data){
-                Insert(std::move(data));
-            }
-        );
+        InsertAll(std::move(container));
     }
 
     template <typename Data>
@@ -198,7 +182,7 @@ namespace lasd {
     }
 
     template <typename Data>
-    void HashTableOpnAdr<Data>::Resize(const ulong newSize){
+    void HashTableOpnAdr<Data>::Resize(ulong newSize){
         ulong tempNewSize;
         tempNewSize = Pow2Next(newSize);
         HashTableOpnAdr<Data> *tempHashTable = new HashTableOpnAdr<Data>(tempNewSize);
@@ -226,7 +210,7 @@ namespace lasd {
     template <typename Data>
     ulong HashTableOpnAdr<Data>::HashKey(ulong idx, const Data &data) const noexcept{
         ulong idxHash = hash(data);
-        return ((HashTable<Data>::HashKey(idxHash) + idx) % tableSize);
+        return (HashKey(idxHash) + (((idx * idx) + idx) / 2)) % tableSize;
     }
 
     template <typename Data>

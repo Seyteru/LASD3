@@ -24,38 +24,22 @@ namespace lasd {
 
     template <typename Data>
     HashTableClsAdr<Data>::HashTableClsAdr(const TraversableContainer<Data> &container) : HashTableClsAdr(container.Size()){
-        container.Traverse(
-            [this](const Data &data){
-                Insert(data);
-            }
-        );
+        InsertAll(container);
     }
 
     template <typename Data>
     HashTableClsAdr<Data>::HashTableClsAdr(const ulong newSize, const TraversableContainer<Data> &container) : HashTableClsAdr(newSize){
-        container.Traverse(
-            [this](const Data &data){
-                Insert(data);
-            }
-        );
+        InsertAll(container);
     }
 
     template <typename Data>
     HashTableClsAdr<Data>::HashTableClsAdr(MappableContainer<Data> &&container) : HashTableClsAdr(container.Size()){
-        container.Map(
-            [this](Data &data){
-                Insert(std::move(data));
-            }
-        );
+        InsertAll(std::move(container));
     }
 
     template <typename Data>
     HashTableClsAdr<Data>::HashTableClsAdr(const ulong newSize, MappableContainer<Data> &&container) : HashTableClsAdr(newSize){
-        container.Map(
-            [this](Data &data){
-                Insert(std::move(data));
-            }
-        );
+        InsertAll(std::move(container));
     }
 
     template <typename Data>

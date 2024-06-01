@@ -184,8 +184,8 @@ void HashTabNotExists(const lasd::HashTable<Data> &hash, bool test, const Data &
 
 void mytestHashTableInteger(){
   try{
-    cout << endl << "Begin HashTable for String" << endl;
-    cout << endl << "Begin HashTableClAdr for String" << endl;
+    cout << endl << "Begin HashTable for Integer" << endl;
+    cout << endl << "Begin HashTableClAdr for Integer" << endl;
 
     lasd::Vector<int> vec(135);
     fill(vec);
@@ -330,8 +330,19 @@ void mytestHashTableInteger(){
     HashTabNotExists(hashTableCl, true, 4);
     HashTabSize(hashTableCl, 100);
 
-    cout << endl << "End HashTableClAdr for String" << endl;
-    cout << endl << "Begin HashTableOpnAdr for String" << endl;
+    hashTableCl.Clear();
+    HashTabSize(hashTableCl, 0);
+    hashTableCl.InsertAll(vec);
+    HashTabSize(hashTableCl, 135);
+    HashTabCountElementFromContainer(hashTableCl, vec, 135);
+
+    lasd::HashTableClsAdr<int> hastTest;
+    hastTest.InsertAll(vec);
+    HashTabSize(hastTest, 135);
+    HashTabCountElementFromContainer(hastTest, vec, 135);
+
+    cout << endl << "End HashTableClAdr for Integer" << endl;
+    cout << endl << "Begin HashTableOpnAdr for Integer" << endl;
     
     cout << endl << "Constructors Tests" << endl << endl;
 
@@ -458,13 +469,13 @@ void mytestHashTableInteger(){
     HashTabNotExists(hashTableOpn, true, 4);
     HashTabSize(hashTableOpn, 100);
 
-    cout << endl << "End HashTableOpnAdr for String" << endl;
+    cout << endl << "End HashTableOpnAdr for Integer" << endl;
 
   }
   catch(...){
     cout << "Error!" << endl;
   }
-  cout << endl << "End of HashTable For String!" << endl;
+  cout << endl << "End of HashTable For Integer!" << endl;
 }
 
 void mytestHashTableDouble(){
@@ -615,8 +626,19 @@ void mytestHashTableDouble(){
     HashTabNotExists(hashTableCl, true, 4.5);
     HashTabSize(hashTableCl, 100);
 
-    cout << endl << "End HashTableClAdr for Integer" << endl;
-    cout << endl << "Begin HashTableOpnAdr for Integer" << endl;
+    hashTableCl.Clear();
+    HashTabSize(hashTableCl, 0);
+    hashTableCl.InsertAll(vec);
+    HashTabSize(hashTableCl, 135);
+    HashTabCountElementFromContainer(hashTableCl, vec, 135);
+
+    lasd::HashTableClsAdr<double> hastTest;
+    hastTest.InsertAll(vec);
+    HashTabSize(hastTest, 135);
+    HashTabCountElementFromContainer(hastTest, vec, 135);
+
+    cout << endl << "End HashTableClAdr for Double" << endl;
+    cout << endl << "Begin HashTableOpnAdr for Double" << endl;
     
     cout << endl << "Constructors Tests" << endl << endl;
 

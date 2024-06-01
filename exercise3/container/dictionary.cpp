@@ -4,8 +4,8 @@ namespace lasd {
     bool DictionaryContainer<Data>::InsertAll(const TraversableContainer<Data> &container){
         bool result = true;
         container.Traverse(
-            [this, &result](const Data &dat){
-                result = result && Insert(dat);
+            [this, &result](const Data &data){
+                result &= Insert(data);
             }
         );
         return result;
@@ -15,8 +15,8 @@ namespace lasd {
     bool DictionaryContainer<Data>::InsertAll(MappableContainer<Data> &&container){
         bool result = true;
         container.Map(
-            [this, &result](Data &dat){
-                result = result && Insert(std::move(dat));
+            [this, &result](Data &data){
+                result &= Insert(std::move(data));
             }
         );
         return result;
@@ -26,8 +26,8 @@ namespace lasd {
     bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer<Data> &container){
         bool result = true;
         container.Traverse(
-            [this, &result](const Data &dat){
-                result = result && Remove(dat);
+            [this, &result](const Data &data){
+                result &= Remove(data);
             }
         );
         return result;
@@ -37,8 +37,8 @@ namespace lasd {
     bool DictionaryContainer<Data>::InsertSome(const TraversableContainer<Data> &container){
         bool result = false;
         container.Traverse(
-            [this, &result](const Data &dat){
-                result = result || Insert(dat);
+            [this, &result](const Data &data){
+                result |= Insert(data);
             }
         );
         return result;
@@ -49,7 +49,7 @@ namespace lasd {
         bool result = false;
         container.Map(
             [this, &result](Data &data){
-                result = result || Insert(std::move(data));
+                result |= Insert(std::move(data));
             }
         );
         return result;
@@ -59,8 +59,8 @@ namespace lasd {
     bool DictionaryContainer<Data>::RemoveSome(const TraversableContainer<Data> &container){
         bool result = false;
         container.Traverse(
-            [this, &result](const Data & dat){
-                result = result || Remove(dat);
+            [this, &result](const Data & data){
+                result |= Remove(data);
             }
         );
         return result;

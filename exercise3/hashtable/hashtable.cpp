@@ -34,6 +34,6 @@ namespace lasd {
 
     template <typename Data>
     ulong HashTable<Data>::HashKey(ulong key) const noexcept{
-        return ((a * key + b) % tableSize);
+        return (((a * key + b) % prime) % tableSize);
     }
 }

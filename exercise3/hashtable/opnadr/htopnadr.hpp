@@ -28,8 +28,8 @@ private:
 
 protected:
 
-  static const unsigned long TABLESIZEMIN = 64;
-  static const unsigned long TABLESIZEMAX = 65536;
+  static const ulong TABLESIZEMIN = 128;
+  static const ulong TABLESIZEMAX = 65536;
 
   // using HashTable<Data>::???;
   using HashTable<Data>::HashKey;
@@ -37,8 +37,8 @@ protected:
   using HashTable<Data>::tableSize;
   using HashTable<Data>::a;
   using HashTable<Data>::b;
-  using HashTable<Data>::distA;
-  using HashTable<Data>::distB;
+  using HashTable<Data>::generatorA;
+  using HashTable<Data>::generatorB;
   using HashTable<Data>::generator;
   using HashTable<Data>::size;
 
@@ -48,6 +48,8 @@ protected:
   double capPercentage = 0.0;
 
 public:
+
+  using DictionaryContainer<Data>::InsertAll;
 
   // Default constructor
   // HashTableOpnAdr() specifiers;
@@ -135,7 +137,7 @@ public:
 
   // type Resize(argument) specifiers; // Resize the hashtable to a given size
 
-  void Resize(const ulong) override;
+  void Resize(ulong) override;
 
   /* ************************************************************************ */
 
